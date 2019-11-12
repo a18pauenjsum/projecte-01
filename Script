@@ -1,0 +1,17 @@
+#!/bin/bash
+#Programa per creació d'usuaris
+#Filtre de root
+echo "El teu UID és ${UID}"
+if [[ "${UID}" -eq 0 ]]; then
+  echo 'Ets root.'
+  #Demana el nom de l'usuari
+  read -p 'Dona`m el nom d`usuari: ' USER_NAME
+  #Demana el nom real.
+  read -p 'Dona`m el teu nom real: ' COMMENT
+  #Demanar la password
+  read -p 'Dona`m la contrasenya: ' PASSWORD
+  # Creació de l'usuari.
+  useradd -c "${COMMENT}" -m ${USER_NAME}
+else
+  echo 'No ets root.'
+fi
