@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://github.com/a18pauenjsum/projecte-01
 #Programa per creació d'usuaris
 #Filtre de root
 echo "El teu UID és ${UID}"
@@ -12,6 +13,23 @@ if [[ "${UID}" -eq 0 ]]; then
   read -p 'Dona`m la contrasenya: ' PASSWORD
   # Creació de l'usuari.
   useradd -c "${COMMENT}" -m ${USER_NAME}
+  if [[ "${?}" -ne 0 ]]; then
+    echo 'Hi hagut un error.'
+  else
+    echo 'Ha estat executat correctament.'
+    echo "El teu nom d'usuari és ${USER_NAME}"
+    if [[ "${?}" -ne 0 ]]; then
+      echo 'Hi hagut un error.'
+    else
+      echo "Canvi de pass ok ${PASSWORD}"
+      #Oblicació de canviar pass en el primer log
+      passwd -e ${USER_NAME}
+      #Mostra el username, password, host
+      echo "El teu nom d'usuari és: ". ${USER_NAME}
+      echo "La teva contrasenya és: ". ${PASSWORD}
+      echo "El teu host és: ". ${HOSTNAME}
+    fi
+  fi
 else
   echo 'No ets root.'
 fi
